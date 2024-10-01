@@ -3,5 +3,5 @@ export default function Level1(){
     <div>
         <p>AAAAAAA</p>
     </div>
- )
+ );
 }

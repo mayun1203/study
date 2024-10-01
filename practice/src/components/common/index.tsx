@@ -1,9 +1,10 @@
+"use client"
 import React from 'react';
 
 export function Header (){
     return(
         <header>
-            <h1 >POST</h1>
+            <p>POST</p>
             <nav>
                 <ul >
                     <li>
@@ -14,6 +15,9 @@ export function Header (){
                     </li>
                     <li>
                         <p>MOON</p>
+                    </li>
+                    <li>
+                        <p>EDIT</p>
                     </li>
                 </ul>
             </nav>
