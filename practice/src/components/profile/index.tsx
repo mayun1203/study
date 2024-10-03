@@ -27,7 +27,7 @@ export function MyProfile () {
         <div className="text-center">
             <Button onClick={clickEditButton}>編集</Button>
             {profile.image && (
-                    <image
+                    <img
                     src={profile.image}
                     alt="プロフィール画像"
                     style={{ width:"200px", height:"200px", objectFit:"cover", borderRadius:"100%" }}
