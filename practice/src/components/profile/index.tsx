@@ -5,11 +5,11 @@ import { useEffect, useState } from "react"
 import { Button } from "@mui/material";
 
 export function MyProfile () {
-    const [profile, setProfile] = useState<{ name: string, email: string, introduction: string | null, image: string | (("/src/assets/image/IMG_7702/jpg")) }>({
+    const [profile, setProfile] = useState<{ name: string, email: string, introduction: string | null, image: string | null }>({
         name: "",
         email: "",
         introduction: "",
-        image: ("/src/assets/image/IMG_7702/jpg"),
+        image: null,
     });
     const { push } = useRouter();
 
@@ -27,7 +27,7 @@ export function MyProfile () {
         <div className="text-center">
             <Button onClick={clickEditButton}>編集</Button>
             {profile.image && (
-                    <img
+                    <image
                     src={profile.image}
                     alt="プロフィール画像"
                     style={{ width:"200px", height:"200px", objectFit:"cover", borderRadius:"100%" }}
