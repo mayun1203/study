@@ -82,6 +82,7 @@ export function EditPage () {
                 </p>
             </form>
             <div className="mt-8 flex items-center justify-center">
+                {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
                 {keep.profileImage && (
                     <img
                     src={keep.profileImage}
