@@ -5,23 +5,77 @@ import { useState } from "react"
 
 export function MyToDoList () {
     const [form, setForm] = useState("");
-    const [list, setList] = useState<string[]>([]);
+    // completed(boolean)が完了状態(true/false)を表します
+    const [list, setList] = useState<{ task: string; completed: boolean}[]>([]);
+    // 編集中んの項目を管理
+    const [editIndex, setEditIndex] = useState<number | null>(null);
 
     const myForm = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm(e.target.value);
     }
 
+    // 項目追加ボタン関数
     const addButton = () => {
         if (form.trim()){
-            setList([...list, form]);
+            // 新しい項目を「未完了状態」でリストに追加
+            setList([...list, { task: form, completed: false}]);
             setForm("");
-        };
-    }
-
-    const deleteItem = (index: number) => {
-        const newList = list.filter((_, i) => i !== index);
-        setList(newList);
+        }
     };
+
+    // 編集ボタン関数
+    const editTask = (index: number) => {
+        setEditIndex(index);
+        // 現在のタスクの内容を更新
+        setForm(list[index].task);
+    };
+
+    // 編集後の保存ボタン関数
+    const updateTask = () => {
+        const newList = list.map((item, i) => {
+            if (i === editIndex){
+                // 編集したタスクの内容を更新
+                return{...item, task: form};
+            }
+            // 他のタスクはそのまま
+            return item;
+        });
+        setList(newList);
+        setForm("");
+        setEditIndex(null);
+    };
+
+    // 編集をキャンセルする関数
+    const cancelEdit = () => {
+        setEditIndex(null);
+        setForm("");
+    };
+
+    // 削除ボタン関数
+    const deleteItem = (index: number) => {
+        const userConfirmed = window.confirm("本当に削除しますか？");
+        if (userConfirmed){
+            const newList = list.filter((aaa, i) => {
+                console.log(aaa, "aaa")
+                console.log(i, "i")
+                console.log(index, "index")
+                console.log(i !== index, "条件式")
+                return i !== index});
+            setList(newList);
+        }
+    };
+
+    // 状態切り替えのボタン関数
+    const completeItem = (index: number) => {
+        // 完了状態を切り替え
+        const newList = list.map((item, i) => {
+            if (i === index) {
+                return {...item, completed: !item.completed};
+            }
+            return item;
+        });
+        setList(newList)
+    }
 
     return(
         <div>
@@ -34,30 +88,44 @@ export function MyToDoList () {
                 />
             </form>
             <Button
-                onClick={addButton}
+                onClick={editIndex === null ? addButton : updateTask}
                 variant="contained">
-                    項目を追加する
+                    {editIndex === null ? "項目を追加する" : "保存"}
             </Button>
-            <div className="mt-5 text-3xl">
+            {editIndex !== null && (
+                <Button
+                onClick={cancelEdit}
+                variant="outlined">
+                    キャンセル
+                </Button>
+            )}
+            <div className="mt-8 text-xl">
             {list.map((item, index)=>(
-                        <p key = {index}>
-                            {item}
-                            {/*
-                            <Button
-                            onClick={}
-                            variant="contained"
-                            className="ml-4 text-xs">
-                                完了
-                            </Button> */}
-                            <Button
-                            onClick={() => deleteItem(index)}
-                            variant="contained"
-                            className="ml-4 text-xs">
-                                削除
-                            </Button>
-                        </p>
+                <li key = {index}>
+                    <span style={{ textDecoration: item.completed ? "line-through" : "none" }}>
+                        {item.task}
+                        <Button
+                        onClick={()=> completeItem(index)}
+                        variant="contained"
+                        className="mt-2 ml-4">
+                            {item.completed ? "未完了" : "完了"}
+                        </Button>
+                        <Button
+                        onClick={()=> deleteItem(index)}
+                        variant="contained"
+                        className="mt-2 ml-2">
+                            削除
+                        </Button>
+                        <Button
+                        onClick={()=> editTask(index)}
+                        variant="contained"
+                        className="mt-2 ml-2">
+                            編集
+                        </Button>
+                    </span>
+                </li>
                     ))}
             </div>
         </div>
-    )
+    );
 }
