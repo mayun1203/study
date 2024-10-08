@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 
+type AddressList = {prefCode:number, prefName:string}
+
 export function EditPage () {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -14,7 +16,8 @@ export function EditPage () {
         phoneNumber:"",
         profileImage:null,
      });
-    //  const [address, setAddress] = useState(null);
+     const [addresses, setAddresses] = useState<AddressList[]>([]);
+     const [selectAddress, setSelectAddress] = useState("");
 
     const editName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -36,21 +39,25 @@ export function EditPage () {
     };
 
     const onClickEditButton = () => {
-        const myProfile = {name, email, setPhoneNumber, profileImage};
+        const myProfile = {name, email, phoneNumber, profileImage};
             setKeep(myProfile);
     };
 
-    // useEffect(() => {
-    //     fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
-    //         method: "GET",
-    //         headers: {
-    //             'X-API-KEY': 'U6fiPXv6CEOyv6bxGBIFnqvBdofnq6roBjMUpShC'
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => setAddress(data))
-    //     .catch(error => console.error("Fetch data failed", error));
-    // }, []);
+     useEffect(() => {
+        fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+            method: "GET",
+            headers: {"X-API-KEY" : "U6fiPXv6CEOyv6bxGBIFnqvBdofnq6roBjMUpShC"}
+        })
+        .then(response => response.json())
+        .then(data => setAddresses(data))
+        .catch(error => console.error("エラーが発生しました。", error));
+     }, []);
+
+     const selectAddressButton = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectAddress(e.target.value)
+     };
+
+     if(!addresses) return <div>Loading...</div>;
 
     return(
         <div className="text-center">
@@ -82,6 +89,19 @@ export function EditPage () {
                     className="w-64"
                     />
                 </p>
+                <p>
+                    <select value={selectAddress} onChange={selectAddressButton}>
+                        <option value="">選択してください</option>
+                        {addresses.map((address, index) => {
+                            return(
+                                <option key={index}>
+                                    {address.prefName}
+                                </option>
+                            )
+                        })}
+                    </select>
+                </p>
+
                 <p className="mt-2">
                     プロフィール画像：
                     <input
