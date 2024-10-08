@@ -1,19 +1,37 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export function SampleFetch () {
-    const FetchData = () => {
-        const [data, setData] = useState(undefined);
+    const [task, setTask] = useState(null);
 
-        fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures")
-        .then((res) => res.json())
-        .then((json) => setData(json))
-        .catch(() => alert("error"));
+    useEffect(() => {
+        fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
+            method: 'GET',
+            headers: {
+                'X-API-KEY': 'U6fiPXv6CEOyv6bxGBIFnqvBdofnq6roBjMUpShC'
+            }
+        })
+        // レスポンスをJSONに変換
+        .then(response => response.json())
+        // 取得したデータをtaskに保存
+        .then(data =>setTask(data))
+        .catch(error => console.error("Fetch data failed", error));
+    }, []);
 
-        console.log(data)
-        return <></>;
-    }
-    return<></>
+    if (!task) return <div>Loading...</div>;
+
+    return(
+        <div>
+            <h1>Task Information</h1>
+            <p className="container" key={task.id}>
+            {task.result.map((result) => {
+                return (
+                    <div className="task" key={task.id}>
+                        <p>{result.prefCode}:{result.prefName}</p>
+                    </div>
+                );
+            })}
+            </p>
+        </div>
+    )
 };
-
-export default SampleFetch;

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 
 export function EditPage () {
@@ -14,6 +14,7 @@ export function EditPage () {
         phoneNumber:"",
         profileImage:null,
      });
+    //  const [address, setAddress] = useState(null);
 
     const editName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -35,9 +36,21 @@ export function EditPage () {
     };
 
     const onClickEditButton = () => {
-        const myProfile = {name, email, phoneNumber, profileImage};
+        const myProfile = {name, email, setPhoneNumber, profileImage};
             setKeep(myProfile);
     };
+
+    // useEffect(() => {
+    //     fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
+    //         method: "GET",
+    //         headers: {
+    //             'X-API-KEY': 'U6fiPXv6CEOyv6bxGBIFnqvBdofnq6roBjMUpShC'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => setAddress(data))
+    //     .catch(error => console.error("Fetch data failed", error));
+    // }, []);
 
     return(
         <div className="text-center">
