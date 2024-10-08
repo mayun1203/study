@@ -9,6 +9,7 @@ export function MyToDoList () {
     const [list, setList] = useState<{ task: string; completed: boolean}[]>([]);
     // 編集中んの項目を管理
     const [editIndex, setEditIndex] = useState<number | null>(null);
+    console.log(editIndex, "editIndex")
 
     const myForm = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm(e.target.value);
@@ -33,6 +34,7 @@ export function MyToDoList () {
     // 編集後の保存ボタン関数
     const updateTask = () => {
         const newList = list.map((item, i) => {
+            console.log(item,"item")
             if (i === editIndex){
                 // 編集したタスクの内容を更新
                 return{...item, task: form};
@@ -85,6 +87,7 @@ export function MyToDoList () {
                 onChange={myForm}
                 placeholder="今日は何をしますか？"
                 className="m-3 w-80 h-12 text-center outline outline-blue-500"
+                value={form}
                 />
             </form>
             <Button
