@@ -50,9 +50,25 @@ export function NewPost() {
         <Button onClick={pushAboutButton}>About</Button>
         <p>NewPost</p>
         <form onSubmit={onSubmitForm}>
-          <p><input type="text" onChange={onChangePostValue} placeholder="入力して下さい" /></p>
-          <input type="file" multiple accept="image/jpeg. image/png" />
-          <p><Button type="button" onClick={onClickPostButton}>投稿</Button></p>
+          <p>
+            <input
+              type="text"
+              onChange={onChangePostValue}
+              value={post}
+              placeholder="入力して下さい"
+            />
+          </p>
+          <input
+            type="file"
+            multiple accept="image/jpeg. image/png"
+          />
+          <p>
+            <Button
+              type="button"
+              onClick={onClickPostButton}>
+              投稿
+            </Button>
+          </p>
         </form>
       </div>
       <div className="w-full mt-5">

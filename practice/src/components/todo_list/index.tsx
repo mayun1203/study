@@ -7,7 +7,7 @@ export function MyToDoList () {
     const [form, setForm] = useState("");
     // completed(boolean)が完了状態(true/false)を表します
     const [list, setList] = useState<{ task: string; completed: boolean}[]>([]);
-    // 編集中んの項目を管理
+    // 編集中の項目を管理
     const [editIndex, setEditIndex] = useState<number | null>(null);
     console.log(editIndex, "editIndex")
 
@@ -108,21 +108,24 @@ export function MyToDoList () {
                     <span style={{ textDecoration: item.completed ? "line-through" : "none" }}>
                         {item.task}
                         <Button
-                        onClick={()=> completeItem(index)}
-                        variant="contained"
-                        className="mt-2 ml-4">
+                            onClick={()=> completeItem(index)}
+                            variant="contained"
+                            className="mt-2 ml-4"
+                        >
                             {item.completed ? "未完了" : "完了"}
                         </Button>
                         <Button
-                        onClick={()=> deleteItem(index)}
-                        variant="contained"
-                        className="mt-2 ml-2">
+                            onClick={()=> deleteItem(index)}
+                            variant="contained"
+                            className="mt-2 ml-2"
+                        >
                             削除
                         </Button>
                         <Button
-                        onClick={()=> editTask(index)}
-                        variant="contained"
-                        className="mt-2 ml-2">
+                            onClick={()=> editTask(index)}
+                            variant="contained"
+                            className="mt-2 ml-2"
+                        >
                             編集
                         </Button>
                     </span>
