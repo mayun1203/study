@@ -5,9 +5,8 @@ type PrefectureType = {
     prefCode:number,
     prefName:string
 }
+
 export function SampleFetch () {
-    // const [tasks, setTasks] = useState([]);
-    // const [selectTask, setSelectTask] = useState("");
     const [prefectures, setPrefectures] = useState<PrefectureType[]>([]);
     const [selectedPrefecture, setSelectedPrefecture] = useState("");
 
@@ -26,6 +25,7 @@ export function SampleFetch () {
     }, []);
 
     const selectChange = (event:React.ChangeEvent<HTMLSelectElement>) => {
+        console.log(event.target.value)
         setSelectedPrefecture(event.target.value);
     };
 
@@ -34,19 +34,18 @@ export function SampleFetch () {
     return(
         <div>
             <h1>Task Information</h1>
-            <select value={selectedPrefecture} onChange={selectChange}>
+            <select value={selectedPrefecture} onChange={(e) =>selectChange(e)}>
                 <option value="">選択して下さい</option>
                 {prefectures.map((prefecture, index) => {
-                    console.log(prefecture, "aaa")
                     return (
-                    <option key={index}>
+                    <option key={index} value={prefecture.prefCode}>
                         {prefecture.prefName}
                     </option>
                     )
                 })}
             </select>
             {/* 選択した都道府県の表示 */}
-            {selectedPrefecture && <p>選択された都道府県： {selectedPrefecture}</p>}
+            {selectedPrefecture && <p>選択された都道府県： {prefectures[Number(selectedPrefecture) - 1].prefName}</p>}
         </div>
     );
 }
