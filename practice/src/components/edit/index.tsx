@@ -10,7 +10,14 @@ export function EditPage () {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [profileImage, setProfileImage] = useState("")
-    const [keep, setKeep] = useState<{name:string, email:string, phoneNumber:string, selectAddress:string,  profileImage:string | null}[]>([{
+    const [keep, setKeep] = useState<{
+        name:string,
+        email:string,
+        phoneNumber:string,
+        selectAddress:string,
+        profileImage:string | null
+    }[]>
+    ([{
         name:"",
         email:"",
         phoneNumber:"",
@@ -58,6 +65,13 @@ export function EditPage () {
         }
      }
 
+     const onClickAllDelete = () => {
+        const userConfirmed = window.confirm("全てのリストを削除しますか？")
+        if (userConfirmed) {
+            setKeep([])
+        }
+     }
+
      useEffect(() => {
         fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
             method: "GET",
@@ -75,20 +89,20 @@ export function EditPage () {
      if(!addresses) return <div>Loading...</div>;
 
     return(
-        <div className="text-center">
-            <form onSubmit={onClickEditButton}>
-                <p className="mt-2">
-                    <label htmlFor="name" className="text-sm font-medium text-gray-700">氏名：</label>
+        <div className="max-w-lg mx-auto">
+            <form onSubmit={onClickEditButton} className="space-y-4">
+                <p className="mt-6 flex item-center">
+                    <label htmlFor="name" className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700">Name：</label>
                     <input
                         type="name"
                         onChange={editName}
                         value={name}
                         placeholder="名前を入力して下さい"
-                        className="w-64 border border-gray-300 p-2 rounded"
+                        className=" w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="mt-2">
-                    <label htmlFor="email" className="text-sm font-medium text-gray-700">Email：</label>
+                <p className="flex item-center">
+                    <label htmlFor="email" className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700">Email：</label>
                     <input
                         type="email"
                         onChange={editEmail}
@@ -97,8 +111,8 @@ export function EditPage () {
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="mt-2">
-                    <label htmlFor="tel" className="text-sm font-medium text-gray-700">TEL：</label>
+                <p className="flex item-center">
+                    <label htmlFor="tel" className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700">Tel：</label>
                     <input
                         type="tel"
                         onChange={editPhoneNumber}
@@ -107,8 +121,8 @@ export function EditPage () {
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="mt-2">
-                    <label htmlFor="address" className="text-sm font-medium text-gray-700">住所：</label>
+                <p className="flex item-center">
+                    <label htmlFor="address" className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700">Address：</label>
                     <select
                         value={selectAddress}
                         onChange={selectAddressButton}
@@ -124,8 +138,8 @@ export function EditPage () {
                         })}
                     </select>
                 </p>
-                <p className="mt-2">
-                    <label htmlFor="image">プロフィール画像：</label>
+                <p className="flex item-center">
+                    <label htmlFor="image" className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700">Image：</label>
                     <input
                         type="file"
                         accept="image/*"
@@ -136,21 +150,36 @@ export function EditPage () {
                     <Button
                         type="submit"
                         variant="contained"
+                        color="success"
                     >
                         登録
                     </Button>
                     <Button
                         type="reset"
                         variant="outlined"
-                        className="ml-24"
+                        color="success"
+                        className="ml-6"
                     >
                         リセット
+                    </Button>
+                    <Button
+                    type="button"
+                    onClick={onClickAllDelete}
+                    variant="outlined"
+                    color="error"
+                    className="ml-6"
+                    >
+                        全削除
                     </Button>
                 </p>
                 <div className="mt-8 flex flex-col justify-center items-center">
                     {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
-                    {keep.map((item, index) => (
-                        <div key={index} className="flex items-center space-x-4">
+                    {/* filterメソッドを使用して、nameが空欄のカードは作成されない仕様にしている(他の要素も追加したければ&&で他要素を追加する) */}
+                    {keep
+                    .filter(item => item.name)
+                    .map((item, index) => (
+                        <div key={index}
+                        className="flex space-x-8 mt-4 mb-8 w-full p-6 bg-white border border-gray-200 shadow-lg ">
                             {item.profileImage && (
                                 <img
                                     src={item.profileImage}
@@ -163,13 +192,16 @@ export function EditPage () {
                                 <p>{item.email}</p>
                                 <p>{item.phoneNumber}</p>
                                 {selectAddress && <p>{item.selectAddress}</p>}
-                                <Button
-                                    type="button"
-                                    onClick={()=>onClickDeleteButton(index)}
-                                    variant="outlined"
-                                >
-                                    DELETE
-                                </Button>
+                                {item.name &&
+                                    <Button
+                                        type="button"
+                                        onClick={()=>onClickDeleteButton(index)}
+                                        variant="outlined"
+                                        color="success"
+                                        >
+                                        DELETE
+                                    </Button>
+                                }
                             </div>
                         </div>
                     ))}
