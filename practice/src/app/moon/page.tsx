@@ -6,7 +6,7 @@ export default function Moon() {
     return (
       <div>
         <p>{title}</p>
-        <　NewPost />
+        < NewPost />
       </div>
     );
   }
