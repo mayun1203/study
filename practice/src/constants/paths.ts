@@ -1,5 +1,4 @@
-
-export const PATHS ={
-    ROOT: "/",
-    Level1: "/level1"
+export const PATHS = {
+    ROOT: '/',
+    Level1: '/level1',
 }

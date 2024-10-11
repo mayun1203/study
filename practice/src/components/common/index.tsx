@@ -1,12 +1,12 @@
-"use client"
-import React from 'react';
+'use client'
+import React from 'react'
 
-export function Header (){
-    return(
+export function Header() {
+    return (
         <header>
             <p>POST</p>
             <nav>
-                <ul >
+                <ul>
                     <li>
                         <p>About</p>
                     </li>
@@ -22,9 +22,9 @@ export function Header (){
                 </ul>
             </nav>
         </header>
-    );
-};
+    )
+}
 
 // className='pt-10'
 
-export default Header;
+export default Header
