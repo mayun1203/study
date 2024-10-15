@@ -1,14 +1,14 @@
-"use client"
-import { useState, useEffect } from "react"
+'use client'
+import { useState, useEffect } from 'react'
 
-export function CurrentDate () {
-    const [currentDate, setCurrentDate] = useState<string>("");
+export function CurrentDate() {
+    const [currentDate, setCurrentDate] = useState<string>('')
     useEffect(() => {
-        const date = new Date();
-        setCurrentDate(date.toLocaleDateString());
-    }, []);
+        const date = new Date()
+        setCurrentDate(date.toLocaleDateString())
+    }, [])
 
-    return(
+    return (
         <div>
             <h1>{currentDate}</h1>
         </div>

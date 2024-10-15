@@ -1,9 +1,9 @@
-import { SampleFetch } from "@/components/cart/index";
+import { SampleFetch } from '@/components/cart/index'
 
-export default function Fetch () {
-    return(
+export default function Fetch() {
+    return (
         <div>
-            < SampleFetch />
+            <SampleFetch />
         </div>
-    );
+    )
 }
