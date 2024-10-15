@@ -6,13 +6,13 @@ export function MoneyNoteBook() {
     type textContents = { id: number; content: string }
 
     // 支出カテゴリー
-    const textContentsCategory = [
-        { id: 1, content: 'カテゴリー' },
-        { id: 2, content: '食費' },
-        { id: 3, content: '日用雑貨' },
-        { id: 4, content: '交際費' },
-        { id: 5, content: '医療費' },
-    ]
+    // const textContentsCategory = [
+    //     { id: 1, content: 'カテゴリー' },
+    //     { id: 2, content: '食費' },
+    //     { id: 3, content: '日用雑貨' },
+    //     { id: 4, content: '交際費' },
+    //     { id: 5, content: '医療費' },
+    // ]
 
     const [textValue, setTextValue] = useState('')
     const [moneyValue, setMoneyValue] = useState('')
