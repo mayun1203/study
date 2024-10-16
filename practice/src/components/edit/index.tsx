@@ -102,9 +102,10 @@ export function EditPage() {
     if (!addresses) return <div>Loading...</div>
 
     return (
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-lg mx-auto flex items-center justify-center h-screen">
             <form onSubmit={onClickEditButton} className="space-y-4">
-                <p className="mt-6 flex item-center">
+                <h1 className="text-center text-3xl text-gray-600">＜EDIT＞</h1>
+                <p className="mt-6 flex items-center">
                     <label
                         htmlFor="name"
                         className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
@@ -120,7 +121,7 @@ export function EditPage() {
                         className=" w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="flex item-center">
+                <p className="flex items-center">
                     <label
                         htmlFor="email"
                         className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
@@ -136,7 +137,7 @@ export function EditPage() {
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="flex item-center">
+                <p className="flex items-center">
                     <label
                         htmlFor="tel"
                         className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
@@ -152,7 +153,7 @@ export function EditPage() {
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
                 </p>
-                <p className="flex item-center">
+                <p className="flex items-center">
                     <label
                         htmlFor="address"
                         className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
@@ -173,7 +174,7 @@ export function EditPage() {
                         })}
                     </select>
                 </p>
-                <p className="flex item-center">
+                <p className="flex items-center">
                     <label
                         htmlFor="image"
                         className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
@@ -187,7 +188,7 @@ export function EditPage() {
                         onChange={editProfileImage}
                     />
                 </p>
-                <p className="mt-2">
+                <p className="mt-2 text-center">
                     <Button type="submit" variant="contained" color="success">
                         登録
                     </Button>
@@ -209,47 +210,45 @@ export function EditPage() {
                         全削除
                     </Button>
                 </p>
-                <div className="mt-8 flex flex-col justify-center items-center">
-                    {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
-                    {/* filterメソッドを使用して、nameが空欄のカードは作成されない仕様にしている(他の要素も追加したければ&&で他要素を追加する) */}
-                    {keep
-                        .filter((item) => item.name)
-                        .map((item, index) => (
-                            <div
-                                key={index}
-                                className="flex space-x-8 mt-4 mb-8 w-full p-6 bg-white border border-gray-200 shadow-lg "
-                            >
-                                {item.profileImage && (
-                                    <img
-                                        src={item.profileImage}
-                                        className="w-52 h-52 rounded-full object-cover mr-2"
-                                        alt="Not Image"
-                                    />
-                                )}
-                                <div className="flex flex-col space-y-2">
-                                    <p>{item.name}</p>
-                                    <p>{item.email}</p>
-                                    <p>{item.phoneNumber}</p>
-                                    {selectAddress && (
-                                        <p>{item.selectAddress}</p>
-                                    )}
-                                    {item.name && (
-                                        <Button
-                                            type="button"
-                                            onClick={() =>
-                                                onClickDeleteButton(index)
-                                            }
-                                            variant="outlined"
-                                            color="success"
-                                        >
-                                            DELETE
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                </div>
             </form>
+            <div className="mt-8 flex flex-col justify-center items-center">
+                {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
+                {/* filterメソッドを使用して、nameが空欄のカードは作成されない仕様にしている(他の要素も追加したければ&&で他要素を追加する) */}
+                {keep
+                    .filter((item) => item.name)
+                    .map((item, index) => (
+                        <div
+                            key={index}
+                            className="flex space-x-8 mt-4 mb-8 w-full p-6 bg-white border border-gray-200 shadow-lg "
+                        >
+                            {item.profileImage && (
+                                <img
+                                    src={item.profileImage}
+                                    className="w-52 h-52 rounded-full object-cover mr-2"
+                                    alt="Not Image"
+                                />
+                            )}
+                            <div className="flex flex-col space-y-2">
+                                <p>{item.name}</p>
+                                <p>{item.email}</p>
+                                <p>{item.phoneNumber}</p>
+                                {selectAddress && <p>{item.selectAddress}</p>}
+                                {item.name && (
+                                    <Button
+                                        type="button"
+                                        onClick={() =>
+                                            onClickDeleteButton(index)
+                                        }
+                                        variant="outlined"
+                                        color="success"
+                                    >
+                                        DELETE
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
     )
 }
