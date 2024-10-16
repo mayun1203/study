@@ -25,6 +25,4 @@ export function Header() {
     )
 }
 
-// className='pt-10'
-
 export default Header

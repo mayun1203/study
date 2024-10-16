@@ -29,26 +29,17 @@ export function EditPage() {
     ])
     const [addresses, setAddresses] = useState<AddressList[]>([])
     const [selectAddress, setSelectAddress] = useState('')
-    const [searchQuery, setSearchQuery] = useState('')
-    const [filteredItems, setFilteredItems] = useState<
-        {
-            name: string
-            email: string
-            phoneNumber: string
-            selectAddress: string
-            profileImage: string | null
-        }[]
-    >([])
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(e.target.value)
+    const editName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
     }
 
-    const searchButton = () => {
-        const filtered = keep.filter((item) =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        setFilteredItems(filtered)
+    const editEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
+    }
+
+    const editPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPhoneNumber(e.target.value)
     }
 
     const editProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +63,6 @@ export function EditPage() {
         setName('')
         setEmail('')
         setPhoneNumber('')
-        setSelectAddress('')
     }
     // console.log(keep, "bbb")
 
@@ -123,8 +113,9 @@ export function EditPage() {
                     </label>
                     <input
                         type="name"
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={editName}
                         value={name}
+                        name="name"
                         placeholder="名前を入力して下さい"
                         className=" w-64 border border-gray-300 p-2 rounded"
                     />
@@ -138,8 +129,9 @@ export function EditPage() {
                     </label>
                     <input
                         type="email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={editEmail}
                         value={email}
+                        name="email"
                         placeholder="メールアドレスを入力して下さい"
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
@@ -153,8 +145,9 @@ export function EditPage() {
                     </label>
                     <input
                         type="tel"
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={editPhoneNumber}
                         value={phoneNumber}
+                        name="tel"
                         placeholder="電話番号を入力して下さい"
                         className="w-64 border border-gray-300 p-2 rounded"
                     />
@@ -168,6 +161,7 @@ export function EditPage() {
                     </label>
                     <select
                         value={selectAddress}
+                        name="address"
                         onChange={selectAddressButton}
                         className="w-64 border border-gray-300 p-2 rounded"
                     >
@@ -189,6 +183,7 @@ export function EditPage() {
                     <input
                         type="file"
                         accept="image/*"
+                        name="image"
                         onChange={editProfileImage}
                     />
                 </p>
@@ -214,22 +209,6 @@ export function EditPage() {
                         全削除
                     </Button>
                 </p>
-                <p>
-                    <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={handleSearch}
-                        placeholder="キーワードを入力して下さい"
-                        className="w-56 text-center border"
-                    />
-                    <Button
-                        onClick={searchButton}
-                        variant="outlined"
-                        className="ml-3"
-                    >
-                        検索
-                    </Button>
-                </p>
                 <div className="mt-8 flex flex-col justify-center items-center">
                     {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
                     {/* filterメソッドを使用して、nameが空欄のカードは作成されない仕様にしている(他の要素も追加したければ&&で他要素を追加する) */}
@@ -251,7 +230,7 @@ export function EditPage() {
                                     <p>{item.name}</p>
                                     <p>{item.email}</p>
                                     <p>{item.phoneNumber}</p>
-                                    {item.selectAddress && (
+                                    {selectAddress && (
                                         <p>{item.selectAddress}</p>
                                     )}
                                     {item.name && (
@@ -269,29 +248,6 @@ export function EditPage() {
                                 </div>
                             </div>
                         ))}
-                </div>
-                <div>
-                    ＜検索結果＞
-                    {filteredItems.length > 0 ? (
-                        filteredItems.map((item, index) => (
-                            <p key={index}>
-                                {/* {thing.profileImage && (
-                                    <img
-                                        src={thing.profileImage}
-                                        alt={'${thing.name}のプロフィール'}
-                                        className="w-52 h-52 rounded-full object-cover mr-2"
-                                    /> */}
-                                <p>{item.name}</p>
-                                <p>
-                                    {item.selectAddress && (
-                                        <p>{item.selectAddress}</p>
-                                    )}
-                                </p>
-                            </p>
-                        ))
-                    ) : (
-                        <p>該当するプロフィールがありません</p>
-                    )}
                 </div>
             </form>
         </div>
