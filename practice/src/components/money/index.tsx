@@ -3,21 +3,19 @@ import React, { useState } from 'react'
 import { Button } from '@mui/material'
 
 export function MoneyNoteBook() {
-    type textContents = { id: number; content: string }
+    // type textContents = { id: number; content: string }
 
     // 支出カテゴリー
-    // const textContentsCategory = [
-    //     { id: 1, content: 'カテゴリー' },
-    //     { id: 2, content: '食費' },
-    //     { id: 3, content: '日用雑貨' },
-    //     { id: 4, content: '交際費' },
-    //     { id: 5, content: '医療費' },
-    // ]
+    const textContentsCategory = [
+       '食費',
+       '日用雑貨',
+       '交際費',
+       '医療費',
+    ]
 
     const [textValue, setTextValue] = useState('')
     const [moneyValue, setMoneyValue] = useState('')
-    const [category, setCategory] = useState<textContents[]>([])
-    const [moneyCategory, setMoneyCategory] = useState('支出')
+    const [category, setCategory] = useState(textContentsCategory)
     const [paycheck, setPaycheck] = useState('')
     const [total, setTotal] = useState<
         {
@@ -29,40 +27,21 @@ export function MoneyNoteBook() {
         }[]
     >([])
 
-    const myPaycheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPaycheck(e.target.value)
-    }
-
-    const inputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTextValue(e.target.value)
-    }
-
-    const inputMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMoneyValue(e.target.value)
-    }
-
-    const selectMoneyCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setMoneyCategory(e.target.value)
-    }
-
-    // const payTable = () = {
-    //     setCategory([])
-    // }
-
     const onClickTotalButton = () => {
         const amount = parseFloat(moneyValue)
         if (!isNaN(amount)) {
             setTotal([
                 ...total,
                 {
-                    category: moneyCategory,
+                    category: category,
                     paycheck: paycheck,
                     textValue: textValue,
                     moneyValue: amount,
-                    moneyCategory,
                 },
             ])
-            setMoneyValue('')
+            setTextValue('');
+            setMoneyValue('');
+            setPaycheck('');
         }
     }
 
@@ -99,15 +78,15 @@ export function MoneyNoteBook() {
             <p className="flex item-center">
                 <label htmlFor="text">給料：</label>
                 <input
-                    type="text"
-                    onChange={myPaycheck}
+                    type="number"
+                    onChange={(e)=>setPaycheck(e.target.value)}
                     value={paycheck}
                     placeholder="収入を入力して下さい"
                     className="mt-5 ml-10 border"
                 />
             </p>
             <p className="flex item-center">
-                <select className="mt-3 border-2 border-orange-400 rounded-md">
+                <select value={textContentsCategory} className="mt-3 border-2 border-orange-400 rounded-md">
                     <option value={''}>カテゴリー</option>
                     <option>食費</option>
                     <option>日用雑貨</option>
@@ -116,17 +95,16 @@ export function MoneyNoteBook() {
                 </select>
                 <input
                     type="text"
-                    onChange={inputText}
+                    onChange={(e)=>setTextValue(e.target.value)}
                     value={textValue}
                     placeholder="内容を入力して下さい"
                     className="mt-5 border"
                 />
             </p>
             <p className="flex item-center">
-                <></>
                 <input
-                    type="text"
-                    onChange={inputMoney}
+                    type="number"
+                    onChange={(e)=>setMoneyValue(e.target.value)}
                     value={moneyValue}
                     placeholder="金額を入力して下さい"
                     className="mt-3 ml-10 border"
