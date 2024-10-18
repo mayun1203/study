@@ -70,7 +70,10 @@ export function MoneyNoteBook() {
     console.log(sample(30, '中国'))
 
     return (
-        <div className="max-w-lg mx-auto">
+        <div className="w-full mx-auto h-screen bg-yellow-100">
+            <div className="mx-auto max-w-lg h-full">
+            <h1 className="text-center mt-10 text-3xl">🏠家計簿をつけよう📝</h1>
+
             {/* <select onChange={selectMoneyCategory} value={moneyCategory} className="mt-5 border-2 border-y-orange-700 rounded-md">
                     <option value="支出">　支出　　</option>
                     <option value="収入">収入</option>
@@ -151,6 +154,7 @@ export function MoneyNoteBook() {
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     )
 }

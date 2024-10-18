@@ -102,116 +102,122 @@ export function EditPage() {
     if (!addresses) return <div>Loading...</div>
 
     return (
-        <div className="max-w-lg mx-auto flex items-center justify-center h-screen">
-            <form onSubmit={onClickEditButton} className="space-y-4">
-                <h1 className="text-center text-3xl text-gray-600">＜EDIT＞</h1>
-                <p className="mt-6 flex items-center">
-                    <label
-                        htmlFor="name"
-                        className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
-                    >
-                        Name：
-                    </label>
-                    <input
-                        type="name"
-                        onChange={editName}
-                        value={name}
-                        name="name"
-                        placeholder="名前を入力して下さい"
-                        className=" w-64 border border-gray-300 p-2 rounded"
-                    />
-                </p>
-                <p className="flex items-center">
-                    <label
-                        htmlFor="email"
-                        className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
-                    >
-                        Email：
-                    </label>
-                    <input
-                        type="email"
-                        onChange={editEmail}
-                        value={email}
-                        name="email"
-                        placeholder="メールアドレスを入力して下さい"
-                        className="w-64 border border-gray-300 p-2 rounded"
-                    />
-                </p>
-                <p className="flex items-center">
-                    <label
-                        htmlFor="tel"
-                        className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
-                    >
-                        Tel：
-                    </label>
-                    <input
-                        type="tel"
-                        onChange={editPhoneNumber}
-                        value={phoneNumber}
-                        name="tel"
-                        placeholder="電話番号を入力して下さい"
-                        className="w-64 border border-gray-300 p-2 rounded"
-                    />
-                </p>
-                <p className="flex items-center">
-                    <label
-                        htmlFor="address"
-                        className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
-                    >
-                        Address：
-                    </label>
-                    <select
-                        value={selectAddress}
-                        name="address"
-                        onChange={selectAddressButton}
-                        className="w-64 border border-gray-300 p-2 rounded"
-                    >
-                        <option value="">選択してください</option>
-                        {addresses.map((address, index) => {
-                            return (
-                                <option key={index}>{address.prefName}</option>
-                            )
-                        })}
-                    </select>
-                </p>
-                <p className="flex items-center">
-                    <label
-                        htmlFor="image"
-                        className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
-                    >
-                        Image：
-                    </label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        name="image"
-                        onChange={editProfileImage}
-                    />
-                </p>
-                <p className="mt-2 text-center">
-                    <Button type="submit" variant="contained" color="success">
-                        登録
-                    </Button>
-                    <Button
-                        type="reset"
-                        variant="outlined"
-                        color="success"
-                        className="ml-6"
-                    >
-                        リセット
-                    </Button>
-                    <Button
-                        type="button"
-                        onClick={onClickAllDelete}
-                        variant="outlined"
-                        color="error"
-                        className="ml-6"
-                    >
-                        全削除
-                    </Button>
-                </p>
-            </form>
-            <div className="mt-8 flex flex-col justify-center items-center">
+        <div className="h-screen flex">
+            <div className='w-1/2 bg-white p-8 flex items-center justify-center'>
+                <form onSubmit={onClickEditButton} className="space-y-4 max-w-md w-full">
+                    <h1 className="text-center text-3xl text-gray-600">＜EDIT＞</h1>
+
+                    <p className="mt-6 flex items-center">
+                        <label
+                            htmlFor="name"
+                            className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
+                        >
+                            Name：
+                        </label>
+                        <input
+                            type="name"
+                            onChange={editName}
+                            value={name}
+                            name="name"
+                            placeholder="名前を入力して下さい"
+                            className=" w-64 border border-gray-300 p-2 rounded"
+                        />
+                    </p>
+                    <p className="flex items-center">
+                        <label
+                            htmlFor="email"
+                            className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
+                        >
+                            Email：
+                        </label>
+                        <input
+                            type="email"
+                            onChange={editEmail}
+                            value={email}
+                            name="email"
+                            placeholder="メールアドレスを入力して下さい"
+                            className="w-64 border border-gray-300 p-2 rounded"
+                        />
+                    </p>
+                    <p className="flex items-center">
+                        <label
+                            htmlFor="tel"
+                            className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
+                        >
+                            Tel：
+                        </label>
+                        <input
+                            type="tel"
+                            onChange={editPhoneNumber}
+                            value={phoneNumber}
+                            name="tel"
+                            placeholder="電話番号を入力して下さい"
+                            className="w-64 border border-gray-300 p-2 rounded"
+                        />
+                    </p>
+                    <p className="flex items-center">
+                        <label
+                            htmlFor="address"
+                            className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
+                        >
+                            Address：
+                        </label>
+                        <select
+                            value={selectAddress}
+                            name="address"
+                            onChange={selectAddressButton}
+                            className="w-64 border border-gray-300 p-2 rounded"
+                        >
+                            <option value="">選択してください</option>
+                            {addresses.map((address, index) => {
+                                return (
+                                    <option key={index}>{address.prefName}</option>
+                                )
+                            })}
+                        </select>
+                    </p>
+                    <p className="flex items-center">
+                        <label
+                            htmlFor="image"
+                            className="w-1/4 text-right pr-4 text-sm font-medium text-gray-700"
+                        >
+                            Image：
+                        </label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            name="image"
+                            onChange={editProfileImage}
+                        />
+                    </p>
+                    <p className="mt-2 text-center">
+                        <Button type="submit" variant="contained" color="success">
+                            登録
+                        </Button>
+                        <Button
+                            type="reset"
+                            variant="outlined"
+                            color="success"
+                            className="ml-6"
+                        >
+                            リセット
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={onClickAllDelete}
+                            variant="outlined"
+                            color="error"
+                            className="ml-6"
+                        >
+                            全削除
+                        </Button>
+                    </p>
+                </form>
+            </div>
+
+                        {/* 右側に一覧で配置 */}
+            <div className="w-1/2 bg-gray-100 p-8 overflow-y-auto">
+            <div className='space-y-4 w-2/3 max-w-2xl mx-auto'>
                 {/* imgタグを使用するとLCPの速度が遅くなるため、(next/image)の<image>を使用することを推奨(翻訳文) */}
                 {/* filterメソッドを使用して、nameが空欄のカードは作成されない仕様にしている(他の要素も追加したければ&&で他要素を追加する) */}
                 {keep
@@ -219,12 +225,12 @@ export function EditPage() {
                     .map((item, index) => (
                         <div
                             key={index}
-                            className="flex space-x-8 mt-4 mb-8 w-full p-6 bg-white border border-gray-200 shadow-lg "
+                            className="p-6 bg-white border border-gray-200 shadow-lg flex items-center space-x-8 flex-wrap"
                         >
                             {item.profileImage && (
                                 <img
                                     src={item.profileImage}
-                                    className="w-52 h-52 rounded-full object-cover mr-2"
+                                    className="w-32 h-32 rounded-full object-cover mr-2"
                                     alt="Not Image"
                                 />
                             )}
@@ -248,6 +254,7 @@ export function EditPage() {
                             </div>
                         </div>
                     ))}
+                    </div>
             </div>
         </div>
     )
