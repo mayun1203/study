@@ -29,7 +29,7 @@ export function MoneyNoteBook() {
                     moneyValue: amount,
                 },
             ]);
-            if (paycheck && paycheck !== "") {
+            if (paycheck.trim()) {
                 setIncome(parseFloat(paycheck));
             }
             setTextValue('');
@@ -37,13 +37,14 @@ export function MoneyNoteBook() {
             setPaycheck('');
         }
     }
-
+    // 下記のtotalExpenseと同じ意味になる
     // const totalExpense = () => {
     //     return total.reduce((money, item) => {
     //         return money + (item.moneyValue || 0);
     //     }, 0);
     // };
 
+    // 暗黙的な戻り値でreturnを省略している
     const totalExpense = () => total.reduce((money, item) => money + (item.moneyValue || 0), 0);
 
     const totalByCategory = (targetCategory:string) => {

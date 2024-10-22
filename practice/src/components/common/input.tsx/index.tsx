@@ -5,7 +5,6 @@ type Props = {
 
 export const input = ({type, placeholder}:Props)=>{
     <div>
-        <p>{}</p>
-        <input type={} placeholder={}
+        <input type={type} placeholder={placeholder} />
     </div>
 };
