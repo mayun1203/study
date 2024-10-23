@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
+import { Form } from '../common/input';
+import { ButtonProps } from '../common/button';
 
 export function MoneyNoteBook() {
     const [textValue, setTextValue] = useState('');
@@ -16,6 +17,18 @@ export function MoneyNoteBook() {
         }[]
     >([])
     const [income, setIncome] = useState(0);
+
+    const handlePaycheck = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setPaycheck(e.target.value)
+    }
+
+    const handleTextValue = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setTextValue(e.target.value)
+    }
+
+    const handleMoneyValue = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setMoneyValue(e.target.value)
+    }
 
     const onClickTotalButton = () => {
         const amount = parseFloat(moneyValue);
@@ -67,12 +80,12 @@ export function MoneyNoteBook() {
                 <div className='flex flex-col space-y-4 mt-8'>
                 <p className="flex items-center justify-center">
                     <label htmlFor="text" className='w-1/5 text-right pr-4'>給料：</label>
-                    <input
+                    <Form
                         type="number"
-                        onChange={(e)=>setPaycheck(e.target.value)}
+                        onChange={handlePaycheck}
                         value={paycheck}
                         placeholder="収入を入力して下さい"
-                        className="w-1/3 border border-orange-700 p-2"
+                        className="w-auto border-orange-700"
                     />
                 </p>
                 <p className="flex items-center justify-center">
@@ -83,34 +96,34 @@ export function MoneyNoteBook() {
                         <option>交際費</option>
                         <option>医療費</option>
                     </select>
-                    <input
+                    <Form
                         type="text"
-                        onChange={(e)=>setTextValue(e.target.value)}
+                        onChange={handleTextValue}
                         value={textValue}
                         placeholder="内容を入力して下さい"
-                        className="w-1/3 ml-9 border border-orange-700 p-2"
+                        className="w-auto ml-9 border-orange-700"
                     />
                 </p>
                 <p className="flex items-center justify-center">
                 <label htmlFor="amount" className='w-1/5 text-right pr-4'>金額：</label>
-                    <input
+                    <Form
                         type="number"
-                        onChange={(e)=>setMoneyValue(e.target.value)}
+                        onChange={handleMoneyValue}
                         value={moneyValue}
                         placeholder="金額を入力して下さい"
-                        className="w-1/3 border border-orange-700 p-2"
+                        className="w-auto border-orange-700"
                     />
                 </p>
                 <p className="flex items-center justify-center">
-                <Button
+                <ButtonProps
                     type="button"
                     onClick={onClickTotalButton}
                     variant="contained"
                     color="error"
-                    className="w-1/2 ml-10"
+                    className="w-4/5 ml-10"
                 >
                     追加
-                </Button>
+                </ButtonProps>
                 </p>
                 </div>
                 <div className="mt-12 w-auto text-center text-2xl border-double border-b-8 border-orange-700">
@@ -118,7 +131,7 @@ export function MoneyNoteBook() {
                     <span className="ml-7">支出総額：{totalExpense()}円</span>
                     <span className="ml-7">残高：{(income || 0) - totalExpense()}円</span>
                 </div>
-                <table className="text-center mt-6 mx-auto w-3/4 h-20 border-collapse border-2 border-orange-800 border-slate-400">
+                <table className="text-center mt-6 mx-auto w-3/4 h-20 border-collapse border-2 border-orange-800">
                     <thead>
                         <tr className="border-b-2 border-orange-800">
                             <th>食費</th>

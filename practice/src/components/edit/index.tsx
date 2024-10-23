@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
+import { Form } from '@/components/common/input'
 
 type AddressList = { prefCode: number; prefName: string }
 
@@ -114,13 +115,13 @@ export function EditPage() {
                         >
                             Name：
                         </label>
-                        <input
-                            type="name"
+                        <Form
+                            type="text"
                             onChange={editName}
                             value={name}
                             name="name"
                             placeholder="名前を入力して下さい"
-                            className=" w-64 border border-gray-300 p-2 rounded"
+                            className=" w-64 border-gray-300 rounded"
                         />
                     </p>
                     <p className="flex items-center">
@@ -130,7 +131,7 @@ export function EditPage() {
                         >
                             Email：
                         </label>
-                        <input
+                        <Form
                             type="email"
                             onChange={editEmail}
                             value={email}
@@ -146,7 +147,7 @@ export function EditPage() {
                         >
                             Tel：
                         </label>
-                        <input
+                        <Form
                             type="tel"
                             onChange={editPhoneNumber}
                             value={phoneNumber}
