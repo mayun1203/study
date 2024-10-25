@@ -1,20 +1,22 @@
 'use client'
 import { Button } from '@mui/material'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Link from '@mui/material/Link'
+// import Card from '@mui/material/Card';
 
 export function NewPost() {
     const [post, setPost] = useState('')
     const [send, setSend] = useState<string[]>([])
     // const [postButton, setPostButton] = useState(false);
-    const { push } = useRouter()
+    // const { push } = useRouter()
 
-    const pushAboutButton = () => {
-        const useConfirm = window.confirm('本当に遷移しますか？')
-        if (useConfirm) {
-            push('/about')
-        }
-    }
+    // const pushAboutButton = () => {
+    //     const useConfirm = window.confirm('本当に遷移しますか？')
+    //     if (useConfirm) {
+    //         push('/about')
+    //     }
+    // }
 
     const onChangePostValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         // 文字を入力したい
@@ -44,17 +46,22 @@ export function NewPost() {
     }
 
     return (
-        <div className="pt-10 flex justify-between">
+        <div className="pt-10 h-screen flex justify-between bg-green-800 bg-opacity-25">
             <div className="w-full">
-                <Button onClick={pushAboutButton}>About</Button>
-                <p>NewPost</p>
-                <form onSubmit={onSubmitForm}>
+                <h1 className="font-serif text-4xl">SUN</h1>
+                <Link href="about" className="text-black">
+                    About
+                </Link>
+                {/* <Button onClick={pushAboutButton}>About</Button> */}
+                <p className="font-serif text-2xl">NewPost</p>
+                <form onSubmit={onSubmitForm} className="space-y-4">
                     <p>
                         <input
                             type="text"
                             onChange={onChangePostValue}
                             value={post}
                             placeholder="入力して下さい"
+                            className="border-2 border-black"
                         />
                     </p>
                     <input
@@ -63,7 +70,11 @@ export function NewPost() {
                         accept="image/jpeg. image/png"
                     />
                     <p>
-                        <Button type="button" onClick={onClickPostButton}>
+                        <Button
+                            type="button"
+                            onClick={onClickPostButton}
+                            variant="outlined"
+                        >
                             投稿
                         </Button>
                     </p>
@@ -72,7 +83,12 @@ export function NewPost() {
             <div className="w-full mt-5">
                 {/* 投稿内容を順に表示 */}
                 {send.map((p, index) => (
-                    <p key={index}>{p}</p>
+                    <p
+                        key={index}
+                        className="bg-white border-2 border-black shadow-2xl"
+                    >
+                        {p}
+                    </p>
                 ))}
             </div>
         </div>
