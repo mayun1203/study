@@ -1,9 +1,9 @@
 'use client'
 import { Button } from '@mui/material'
-// import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import Link from '@mui/material/Link'
-// import Card from '@mui/material/Card';
+import { Sidebar } from '../common/sidebar'
+import TextareaAutosize from 'react-textarea-autosize';
+
 
 export function NewPost() {
     const [post, setPost] = useState('')
@@ -46,28 +46,24 @@ export function NewPost() {
     }
 
     return (
-        <div className="pt-10 h-screen flex justify-between bg-green-800 bg-opacity-25">
-            <div className="w-full">
-                <h1 className="font-serif text-4xl">SUN</h1>
-                <Link href="about" className="text-black">
-                    About
-                </Link>
-                {/* <Button onClick={pushAboutButton}>About</Button> */}
-                <p className="font-serif text-2xl">NewPost</p>
-                <form onSubmit={onSubmitForm} className="space-y-4">
+        <div className="h-screen flex bg-green-800 bg-opacity-25">
+            < Sidebar />
+            <div className='w-2/3 flex flex-col overflow-y-auto'>
+                <form onSubmit={onSubmitForm} className="object-top w-full space-y-4 border-2 flex">
                     <p>
-                        <input
+                        <TextareaAutosize
                             type="text"
                             onChange={onChangePostValue}
                             value={post}
                             placeholder="入力して下さい"
-                            className="border-2 border-black"
+                            className=" bg-green-800 bg-opacity-0 border-2 border-white text-white"
                         />
                     </p>
                     <input
                         type="file"
                         multiple
                         accept="image/jpeg. image/png"
+                        className=''
                     />
                     <p>
                         <Button
@@ -79,18 +75,19 @@ export function NewPost() {
                         </Button>
                     </p>
                 </form>
+                <div className="text-center">
+                    {/* 投稿内容を順に表示 */}
+                    {send.map((p, index) => (
+                        <p
+                            key={index}
+                            className="w-full border border-white"
+                        >
+                            {p}
+                        </p>
+                    ))}
+                </div>
             </div>
-            <div className="w-full mt-5">
-                {/* 投稿内容を順に表示 */}
-                {send.map((p, index) => (
-                    <p
-                        key={index}
-                        className="bg-white border-2 border-black shadow-2xl"
-                    >
-                        {p}
-                    </p>
-                ))}
-            </div>
+            <div className='w-1/3 h-screen bg-gray-400'></div>
         </div>
     )
 }
