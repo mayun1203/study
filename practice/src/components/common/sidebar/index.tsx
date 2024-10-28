@@ -8,8 +8,8 @@ export function Sidebar() {
             {/* <h1 className="font-serif text-4xl">SUN</h1> */}
             <ul className='flex flex-col justify-center items-center h-screen w-80 bg-gray-400 space-y-8'>
                 {SidebarItems.map((value, index)=>(
-                    <li key={index} className='text-2xl w-full'>
-                        <Link href={value.link} className='flex items-center px-4 gap-2'>
+                    <li key={index} className='text-2xl w-full overflow-hidden'>
+                        <Link href={value.link} className=' no-underline h-12 flex items-center hover:bg-gray-300 text-white px-4 gap-2'>
                             <span className='w-1/4 flex justify-center'>{value.icon}</span>
                             <span className='w-2/3'>{value.title}</span>
                         </Link>
