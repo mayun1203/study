@@ -28,6 +28,7 @@ export function NewPost() {
             setSend([...send, newPost]);
         }
         setPost('');
+        setImage('');
     }
 
     const onSubmitForm = (e: React.FormEvent) => {
@@ -38,43 +39,51 @@ export function NewPost() {
         <div className="h-screen flex bg-green-800 bg-opacity-25">
             < Sidebar />
             <div className='w-2/3 flex flex-col overflow-y-auto border-2 border-white'>
-                <form onSubmit={onSubmitForm} className="object-top w-full flex">
-                    <p>
-                        <TextareaAutosize
-                            onChange={onChangePostValue}
-                            value={post}
-                            placeholder="New Post"
-                            minRows={4}
-                            className=" w-96 text-center bg-green-800 bg-opacity-0 border border-white text-white"
-                        />
-                    </p>
-                    <input
-                        type="file"
-                        onChange={handleImage}
-                        accept="image/jpeg. image/png"
+                <form onSubmit={onSubmitForm} className="my-2 object-top w-full flex">
+                    <TextareaAutosize
+                        onChange={onChangePostValue}
+                        value={post}
+                        placeholder="New Post"
+                        minRows={5}
+                        className="ml-1 w-2/3 text-center bg-green-800 bg-opacity-0 border border-white text-white rounded"
                     />
-                    <p>
+                    <div className='flex flex-col'>
+                        <Button
+                            component="label"
+                            variant='outlined'
+                            className='border border-white w-60 h-20 ml-2 text-gray-400'
+                        >
+                            IMAGE UPLOAD
+                            <input
+                                type="file"
+                                onChange={handleImage}
+                                accept="image/jpeg. image/png"
+                                hidden
+                                id='fileUploader'
+                            />
+                        </Button>
                         <Button
                             type="button"
                             onClick={onClickPostButton}
                             variant="outlined"
+                            className='mt-1 border-white w-60 h-9 ml-2 text-gray-400'
                         >
-                            投稿
+                            POST
                         </Button>
-                    </p>
+                    </div>
                 </form>
                 <div className="text-center">
                     {/* 投稿内容を順に表示 */}
                     {send.map((p, index) => (
-                        <p
+                        <div
                             key={index}
-                            className="w-full text-white border border-white"
+                            className="w-full text-center text-white border border-white"
                         >
                             <div className='mt-4'>{p.post}</div>
                             {p.image && (
-                                <img src={p.image} className='w-3/4 h-1/2 m-4 object-cover'/>
+                                <img src={p.image} className='w-3/4 h-1/2 m-4 object-cover mx-auto'/>
                             )}
-                        </p>
+                        </div>
                     ))}
                 </div>
             </div>
