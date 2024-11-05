@@ -2,20 +2,23 @@
 import { Button } from '@mui/material'
 import React, { useState } from 'react'
 import { Sidebar } from '../common/sidebar'
-import TextareaAutosize from 'react-textarea-autosize';
-
+import TextareaAutosize from 'react-textarea-autosize'
+import Image from 'next/image'
+import { FavoriteButton } from '@/components/new_post/favorite'
 
 export function NewPost() {
-    const [post, setPost] = useState('');
-    const [image, setImage] =useState('');
-    const [send, setSend] = useState<{post:string, image:string | null}[]>([]);
+    const [post, setPost] = useState('')
+    const [image, setImage] = useState('')
+    const [send, setSend] = useState<{ post: string; image: string | null }[]>(
+        []
+    )
 
     const onChangePostValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPost(e.target.value)
     }
 
-    const handleImage = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files) return;
+    const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return
 
         const fileObject = e.target.files[0]
         setImage(window.URL.createObjectURL(fileObject))
@@ -23,12 +26,12 @@ export function NewPost() {
     }
 
     const onClickPostButton = () => {
-        const newPost = {post: post, image: image}
+        const newPost = { post: post, image: image }
         if (post.trim()) {
-            setSend([...send, newPost]);
+            setSend([...send, newPost])
         }
-        setPost('');
-        setImage('');
+        setPost('')
+        setImage('')
     }
 
     const onSubmitForm = (e: React.FormEvent) => {
@@ -36,10 +39,13 @@ export function NewPost() {
     }
 
     return (
-        <div className="h-screen flex bg-green-800 bg-opacity-25">
-            < Sidebar />
-            <div className='w-2/3 flex flex-col overflow-y-auto border-2 border-white'>
-                <form onSubmit={onSubmitForm} className="my-2 object-top w-full flex">
+        <div className="h-screen flex bg-green-800 bg-opacity-25 ">
+            <Sidebar />
+            <div className="w-2/3 flex flex-col overflow-y-auto border-2 border-white">
+                <form
+                    onSubmit={onSubmitForm}
+                    className="my-2 object-top w-full flex items-center justify-center"
+                >
                     <TextareaAutosize
                         onChange={onChangePostValue}
                         value={post}
@@ -47,11 +53,11 @@ export function NewPost() {
                         minRows={5}
                         className="ml-1 w-2/3 text-center bg-green-800 bg-opacity-0 border border-white text-white rounded"
                     />
-                    <div className='flex flex-col'>
+                    <div className="flex flex-col">
                         <Button
                             component="label"
-                            variant='outlined'
-                            className='border border-white w-60 h-20 ml-2 text-gray-400'
+                            variant="outlined"
+                            className="border border-white w-60 h-20 ml-2 text-gray-400"
                         >
                             IMAGE UPLOAD
                             <input
@@ -59,14 +65,14 @@ export function NewPost() {
                                 onChange={handleImage}
                                 accept="image/jpeg. image/png"
                                 hidden
-                                id='fileUploader'
+                                id="fileUploader"
                             />
                         </Button>
                         <Button
                             type="button"
                             onClick={onClickPostButton}
                             variant="outlined"
-                            className='mt-1 border-white w-60 h-9 ml-2 text-gray-400'
+                            className="mt-1 border-white w-60 h-9 ml-2 text-gray-400"
                         >
                             POST
                         </Button>
@@ -79,15 +85,24 @@ export function NewPost() {
                             key={index}
                             className="w-full text-center text-white border border-white"
                         >
-                            <div className='mt-4'>{p.post}</div>
-                            {p.image && (
-                                <img src={p.image} className='w-3/4 h-1/2 m-4 object-cover mx-auto'/>
-                            )}
+                            <div className="mt-4">{p.post}</div>
+                            <div>
+                                {p.image && (
+                                    <Image
+                                        src={p.image}
+                                        alt="画像が表示されません"
+                                        width={700}
+                                        height={300}
+                                        className="m-4 object-cover mx-auto"
+                                    />
+                                )}
+                            </div>
+                            <FavoriteButton />
                         </div>
                     ))}
                 </div>
             </div>
-            <div className='w-1/3 h-screen bg-gray-400'></div>
+            <div className="w-1/3 h-screen bg-gray-400"></div>
         </div>
     )
 }
